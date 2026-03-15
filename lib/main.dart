@@ -29,6 +29,28 @@ class _QouteListState extends State<QuoteList> {
       author: "Marcus Tullius Cicero",
     ),
   ];
+  Widget qouteTemplate(qoute) {
+    return Card(
+      margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Padding(
+        padding: EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              qoute.text,
+              style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+            ),
+            SizedBox(height: 6),
+            Text(
+              qoute.author,
+              style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +62,7 @@ class _QouteListState extends State<QuoteList> {
         backgroundColor: Colors.redAccent,
       ),
       body: Column(
-        children: quotes
-            .map((quote) => Text("${quote.text} - ${quote.author}"))
-            .toList(),
+        children: quotes.map((quote) => qouteTemplate(quote)).toList(),
       ),
     );
   }
