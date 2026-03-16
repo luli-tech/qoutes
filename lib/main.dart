@@ -1,69 +1,54 @@
 import 'package:flutter/material.dart';
-import "qoute.dart";
+import 'package:qoute/utils/colors.dart';
+import 'components/home/home.dart';
 
 void main() {
-  return runApp(MaterialApp(home: QuoteList()));
+  runApp(MyApp());
 }
 
-class QuoteList extends StatefulWidget {
-  const QuoteList({super.key});
-
-  @override
-  State<QuoteList> createState() => _QouteListState();
-}
-
-class _QouteListState extends State<QuoteList> {
-  List<Qoute> quotes = [
-    Qoute(
-      text: "Be yourself; everyone else is already taken.",
-      author: "Oscar Wilde",
-    ),
-    Qoute(
-      text:
-          "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
-      author: "Albert Einstein",
-    ),
-    Qoute(text: "So many books, so little time.", author: "Frank Zappa"),
-    Qoute(
-      text: "A room without books is like a body without a soul.",
-      author: "Marcus Tullius Cicero",
-    ),
-  ];
-  Widget qouteTemplate(qoute) {
-    return Card(
-      margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: Padding(
-        padding: EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              qoute.text,
-              style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-            ),
-            SizedBox(height: 6),
-            Text(
-              qoute.author,
-              style: TextStyle(fontSize: 14, color: Colors.grey[800]),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: Text("Awesom Qoutes", style: TextStyle(color: Colors.white)),
-        centerTitle: true,
-        backgroundColor: Colors.redAccent,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+
+      // Global Theme
+      theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.background,
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppColors.appBar,
+          titleTextStyle: TextStyle(
+            color: Colors.white, // AppBar text color
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(color: Colors.white), // AppBar icons
+        ),
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(color: Colors.white),
+          bodyMedium: TextStyle(color: Colors.white),
+          displayLarge: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+          displayMedium: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
-      body: Column(
-        children: quotes.map((quote) => qouteTemplate(quote)).toList(),
+
+      // DefaultTextStyle for everything else
+      builder: (context, child) => DefaultTextStyle(
+        style: TextStyle(color: Colors.white),
+        child: child!,
       ),
+
+      home: HomePage(),
     );
   }
 }
