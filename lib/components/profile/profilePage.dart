@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qoute/utils/custom/appbar.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({super.key});
@@ -11,15 +12,22 @@ class _ProfilepageState extends State<Profilepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.settings, color: Colors.white),
+      appBar: CustomAppBar(
+        title: "Profile",
+        showBack: true,
+        action: GestureDetector(
+          onTap: () {
+            print("Settings pressed");
+          },
+          child: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.settings, color: Colors.white),
           ),
-        ],
+        ),
       ),
       body: SafeArea(
         child: Column(
