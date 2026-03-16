@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:qoute/utils/colors.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBack;
   final VoidCallback? onBack;
-  final VoidCallback? onSettings;
+  final Widget? action; // <-- any widget can be passed
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.showBack = false,
     this.onBack,
-    this.onSettings,
+    this.action,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       height: 70,
       decoration: BoxDecoration(color: AppColors.appBar),
       child: Row(
@@ -29,20 +29,20 @@ class CustomAppBar extends StatelessWidget {
               ? GestureDetector(
                   onTap: onBack ?? () => Navigator.pop(context),
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: Colors.deepPurple,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(Icons.arrow_back, color: Colors.white),
+                    child: const Icon(Icons.arrow_back, color: Colors.white),
                   ),
                 )
-              : SizedBox(width: 40),
+              : const SizedBox(width: 40),
 
           /// TITLE
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -50,19 +50,12 @@ class CustomAppBar extends StatelessWidget {
           ),
 
           /// RIGHT SIDE
-          GestureDetector(
-            onTap: onSettings,
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(Icons.settings, color: Colors.white),
-            ),
-          ),
+          action ?? const SizedBox(width: 40),
         ],
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
 }
